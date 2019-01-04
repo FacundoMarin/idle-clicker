@@ -6,7 +6,7 @@ public class LittleGuy : MonoBehaviour
 {
     public float speed = 100.0f;
     public float currentSpeed;
-    public float decreaseRatio = 2.0f;
+    public float decreaseRatio = 0.1f;
     public float minDistance = 1.0f;
     public Transform[] waypoints;
     private int currentWaypoint;
@@ -37,8 +37,12 @@ public class LittleGuy : MonoBehaviour
     {
         if (currentSpeed > speed)
         {
-            float decreaseValue = Time.deltaTime * decreaseRatio;
+            float decreaseValue = Time.deltaTime * Mathf.Sqrt(currentSpeed * decreaseRatio);
             currentSpeed -= decreaseValue;
+            if (currentSpeed < speed)
+            {
+                currentSpeed = speed;
+            }
         }
     }
 
