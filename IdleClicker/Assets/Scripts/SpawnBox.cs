@@ -8,7 +8,9 @@ public class SpawnBox : MonoBehaviour {
 	public float spawnTime = 3f;
 	private int maxSimultaneousSpawns = 5;
 	public Transform spawningArea;
+	public RectTransform spawningArea;
 	public GameObject box;
+	public GameObject forDebug;
 
 
 	// Start is called before the first frame update
@@ -17,18 +19,20 @@ public class SpawnBox : MonoBehaviour {
 	}
 
 	void Spawn() {
-		Debug.Log("Spawneado");
 
-		int amountSpawns = Random.Range(1, maxSimultaneousSpawns);
+		int amountSpawns = 1; //Random.Range(1, maxSimultaneousSpawns);
 		
-		for (int i = 0, s = 0; s < amountSpawns && i < boxes.Length; i++) {
+		for (int i = 0, s = 0; s < amountSpawns && i < boxes.Length; i++)
 			if (boxes[i] == null) {
-				Vector3 position = new Vector3(Random.Range(10, spawningArea.position.x-10), Random.Range(10, spawningArea.position.y-10), 0);
-				boxes[i] = Instantiate(box, position, new Quaternion(0, 0, 0, 0));
-				Debug.Log("Instanciando");
+				
+				float x = Random.Range(spawningArea.rect.xMin, spawningArea.rect.xMax);
+				float y = Random.Range(spawningArea.rect.yMin, spawningArea.rect.yMax);
+				GameObject clone = Instantiate(box, spawningArea);
+				clone.transform.position = new Vector2(x, y);
+				boxes[i] = clone;
+
 				s++;
 			}
-		}
 
 	}
 }
