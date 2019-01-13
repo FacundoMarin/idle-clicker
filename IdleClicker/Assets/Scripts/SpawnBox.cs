@@ -18,13 +18,14 @@ public class SpawnBox : MonoBehaviour {
 
 	void Spawn() {
 
-		int amountSpawns = 1; //Random.Range(1, maxSimultaneousSpawns);
+		int amountSpawns = Random.Range(1, maxSimultaneousSpawns);
 		
 		for (int i = 0, s = 0; s < amountSpawns && i < boxes.Length; i++)
 			if (boxes[i] == null) {
 				
-				float x = Random.Range(spawningArea.rect.xMin, spawningArea.rect.xMax);
-				float y = Random.Range(spawningArea.rect.yMin, spawningArea.rect.yMax);
+				float x = Random.Range(spawningArea.rect.xMin + 10, spawningArea.rect.xMax - 10);
+				float y = Random.Range(spawningArea.rect.yMin + 10, spawningArea.rect.yMax - 10);
+				
 				GameObject clone = Instantiate(box, spawningArea);
 				clone.transform.localPosition = new Vector2(x,y);
 				boxes[i] = clone;
