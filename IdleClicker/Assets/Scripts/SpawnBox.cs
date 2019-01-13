@@ -9,10 +9,9 @@ public class SpawnBox : MonoBehaviour {
 	private int maxSimultaneousSpawns = 5;
 	public RectTransform spawningArea;
 	public GameObject box;
-	public GameObject forDebug;
+	public LittleGuy littleGuy;
 
 
-	// Start is called before the first frame update
 	void Start() {
 		InvokeRepeating("Spawn", spawnTime, spawnTime);
 	}
@@ -29,6 +28,8 @@ public class SpawnBox : MonoBehaviour {
 				GameObject clone = Instantiate(box, spawningArea);
 				clone.transform.localPosition = new Vector2(x,y);
 				boxes[i] = clone;
+
+				littleGuy.AddDestination(clone.transform);
 			
 				s++;
 			}
