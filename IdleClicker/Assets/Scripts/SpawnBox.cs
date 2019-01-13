@@ -7,7 +7,7 @@ public class SpawnBox : MonoBehaviour {
 	public GameObject[] boxes = new GameObject[20];
 	public float spawnTime = 3f;
 	private int maxSimultaneousSpawns = 5;
-	public Transform spawningArea;
+	//public Transform spawningArea;
 	public RectTransform spawningArea;
 	public GameObject box;
 	public GameObject forDebug;
