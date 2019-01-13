@@ -7,10 +7,8 @@ public class SpawnBox : MonoBehaviour {
 	public GameObject[] boxes = new GameObject[20];
 	public float spawnTime = 3f;
 	private int maxSimultaneousSpawns = 5;
-	public Transform spawningArea;
 	public RectTransform spawningArea;
 	public GameObject box;
-	public GameObject forDebug;
 
 
 	// Start is called before the first frame update
@@ -27,7 +25,8 @@ public class SpawnBox : MonoBehaviour {
 				
 				float x = Random.Range(spawningArea.rect.xMin, spawningArea.rect.xMax);
 				float y = Random.Range(spawningArea.rect.yMin, spawningArea.rect.yMax);
-				GameObject clone = Instantiate(box, spawningArea);
+				//boxes[i] = Instantiate(box, new Vector2(x, y), Quaternion.identity, spawningArea);
+				GameObject clone = Instantiate(box, spawningArea, false);
 				clone.transform.position = new Vector2(x, y);
 				boxes[i] = clone;
 
