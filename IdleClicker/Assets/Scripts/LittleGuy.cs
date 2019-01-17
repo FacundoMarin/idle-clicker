@@ -8,9 +8,11 @@ public class LittleGuy : MonoBehaviour
     public float currentSpeed;
     public float decreaseRatio = 2.0f;
     public float minDistance = 1.0f;
-    public List<Transform> waypoints;
+    public List<Box> waypoints;
+    private Transform destination;
     private bool bussy = false;
     public Transform home;
+    public GameController gameController;
 
     void Start()
     {
@@ -33,19 +35,25 @@ public class LittleGuy : MonoBehaviour
 
     private void Move()
     {
-        float step = currentSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[0].position, step);
-
-        if (Vector3.Distance(transform.position, waypoints[0].position) < minDistance)
+        if (waypoints[0] == null) 
         {
-            Transform box = waypoints[0];
+            waypoints.Remove(waypoints[0]);
+            bussy = false;
+        }
+        else
+        {
+            float step = currentSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, waypoints[0].transform.position, step);
+        }
+
+        if (Vector3.Distance(transform.position, waypoints[0].transform.position) < minDistance)
+        {
+            Box box = waypoints[0];
+            gameController.IncreaseCoins(box.GetValue());
             waypoints.Remove(box);
             Destroy(box.gameObject);
             bussy = false;
         }
-
-        //float step = currentSpeed * Time.deltaTime;
-        //transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].position, step);
     }
 
     private void goHome()
@@ -75,7 +83,7 @@ public class LittleGuy : MonoBehaviour
         currentSpeed += value;
     }
 
-    public void AddDestination(Transform destination)
+    public void AddDestination(Box destination)
     {
         waypoints.Add(destination);
     }
